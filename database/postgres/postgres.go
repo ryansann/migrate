@@ -269,6 +269,7 @@ func (p *Postgres) Run(migration io.Reader) error {
 		var err error
 		if e := multistmt.Parse(migration, multiStmtDelimiter, p.config.MultiStatementMaxSize, func(m []byte) bool {
 			if err = p.runStatement(m); err != nil {
+				fmt.Printf("error: %v\n", err)
 				return false
 			}
 			return true
